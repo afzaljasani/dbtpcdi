@@ -4,13 +4,14 @@ version: 2
 
 sources:
   - name: tpcdi
-    catalog: hive_metastore
+    catalog: tpcdi
     schema: "{{var('stagingschema')}}"
     tables:
      
       - name: StatusType
         external:
-          location: dbfs:/tmp/tpcdi/sf={{var("benchmark")}}/Batch1/StatusType.txt   # hdfs://, s3://, azure://, dbfs://, ...
+          location: csv.`/Volumes/tpcdi/tpcdi_raw_data/tpcdi_volume/sf=100/Batch1/StatusType.txt`
+          # dbfs:/tmp/tpcdi/sf={{var("benchmark")}}/Batch1/StatusType.txt   # hdfs://, s3://, azure://, dbfs://, ...
           using: csv
 
           options:                           # as needed

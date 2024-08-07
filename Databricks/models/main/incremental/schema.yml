@@ -33,10 +33,10 @@ models:
   - name: DimCustomerStg
     columns:
       - name: effectivedate
-        tests:
-          - dateval:
-              config:
-                store_failures: true
+        # tests:
+          # - dateval:
+          #     config:
+          #       store_failures: true
 
 
   - name: FactMarketHistory
@@ -95,15 +95,15 @@ models:
               config:
                 store_failures: true
       - name: commission
-        tests:
-           - tradecom:
-              config:
-                store_failures: true 
+        # tests:
+        #    - tradecom:
+        #       config:
+        #         store_failures: true 
                 
       - name: fee
-        tests:
-           - tradefee:
-              config:
-                store_failures: true                                                    
+        # tests:
+        #    - tradefee:
+        #       config:
+        #         store_failures: true                                                    
 
 

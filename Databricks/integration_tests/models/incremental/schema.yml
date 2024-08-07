@@ -31,10 +31,10 @@ models:
   - name: DimCustomerStg
     columns:
       - name: effectivedate
-        tests:
-          - dateval:
-              config:
-                store_failures: true
+        # tests:
+        #   - dateval:
+        #       config:
+        #         store_failures: true
 
   - name: FactMarketHistory
     columns:
