@@ -6,4 +6,4 @@
 select
     *
 from
-    {{ source('tpcdi', 'StatusType') }}
+    {{ source('tpcdi_prod', 'statustype') }}

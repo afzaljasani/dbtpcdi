@@ -18,7 +18,7 @@ FROM (
     batchid
   FROM (
     SELECT * , 1 batchid
-    FROM {{ source('tpcdi', 'CashTransactionHistory') }}
+    FROM {{ source('tpcdi', 'v_cashtransactionhistory') }}
     UNION ALL
     SELECT * except(cdc_flag, cdc_dsn)
     FROM {{ ref('CashTransactionIncremental') }}

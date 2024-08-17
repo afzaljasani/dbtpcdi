@@ -1,9 +1,9 @@
 {{
     config(
-        materialized = 'view',
-        partition_by = 'rectype'
+        materialized = 'view'
     )
 }}
 
-select *, substring(value, 16, 3) rectype from 
-{{ source('tpcdi', 'FinWireStg') }}
+select * 
+from 
+{{ source('tpcdi', 'v_finwire') }}

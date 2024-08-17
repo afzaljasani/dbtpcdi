@@ -4,17 +4,10 @@
     )
 }}
 select
-    *,
-    2 as batchid
+    *
 from
-    {{ source('tpcdi', 'DailyMarketIncrementaldos') }}
+    {{ source('tpcdi', 'v_dailymarketincremental') }}
 
- UNION ALL
 
- select
-    *,
-    3 as batchid
-from
-    {{ source('tpcdi', 'DailyMarketIncrementaltres') }}
 
 

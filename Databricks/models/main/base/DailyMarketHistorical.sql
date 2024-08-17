@@ -4,7 +4,6 @@
     )
 }}
 select
-    *,
-    1 as batchid
+    *
 from
-    {{ source('tpcdi', 'DailyMarketHistorical') }}
+    {{ source('tpcdi', 'v_dailymarkethistorical') }}
