@@ -53,10 +53,10 @@ FROM (
         UNION ALL
         SELECT
           accountid,
-          a.ca_c_id customerid,
+          a.customerid,
           accountDesc,
           TaxStatus,
-          a.ca_b_id brokerid,
+          a.brokerid,
           st_name as status,
           TIMESTAMP(bd.batchdate) update_ts,
           a.batchid
@@ -64,7 +64,7 @@ FROM (
         JOIN {{ ref('BatchDate') }} bd
           ON a.batchid = bd.batchid
         JOIN {{ ref('StatusType') }} st 
-          ON a.CA_ST_ID = st.st_id
+          ON a.customerid = st.st_id
       ) a
     ) a
     WHERE a.effectivedate < a.enddate

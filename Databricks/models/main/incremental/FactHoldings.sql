@@ -18,8 +18,7 @@ SELECT
   hh.batchid
 FROM (
   SELECT 
-    * ,
-    1 batchid
+    *
   FROM {{ source('tpcdi', 'v_holdinghistory') }}
   UNION ALL
   SELECT * except(cdc_flag, cdc_dsn)

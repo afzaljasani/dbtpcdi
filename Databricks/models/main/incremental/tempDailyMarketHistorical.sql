@@ -17,6 +17,7 @@ SELECT
 FROM (
   SELECT * FROM {{ ref('DailyMarketHistorical') }}
   UNION ALL
-  SELECT * except(cdc_flag, cdc_dsn) FROM {{ ref('DailyMarketIncremental') }}) dmh
+  SELECT * except(fiftytwoweekhigh, sk_fiftytwoweekhighdate, 
+  fiftytwoweeklow, sk_fiftytwoweeklowdate) FROM {{ ref('DailyMarketIncremental') }}) dmh
 JOIN {{ ref('DimDate') }} d 
   ON d.datevalue = dm_date;
