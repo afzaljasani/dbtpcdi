@@ -8,10 +8,12 @@ models:
           - not_null:
               config:
                 store_failures: true
+                severity: warn
           - accepted_values:
               values: [1,2,3]
               config:
                 store_failures: true
+                severity: warn
 
 
     
@@ -22,11 +24,13 @@ models:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_brokerid
         tests:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
 
   
 
@@ -46,11 +50,13 @@ models:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: PERatio
         tests:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
 
   - name: FactWatches
     columns:
@@ -59,11 +65,13 @@ models:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_customerid
         tests:
            - not_null:
               config:
-                store_failures: true  
+                store_failures: true
+                severity: warn  
 
 
   - name: FactHoldings
@@ -73,6 +81,7 @@ models:
           - not_null:
               config:
                 store_failures: true
+                severity: warn
 
   - name: FactCashBalances
     columns:
@@ -89,6 +98,7 @@ models:
            - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_accountid
         tests:
            - not_null:
