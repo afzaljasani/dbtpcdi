@@ -1,3 +1,5 @@
+creds.sh
+
 # dbt files
 logs/dbt.log
 logs/dbt.log.legacy

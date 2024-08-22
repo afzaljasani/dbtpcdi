@@ -6,4 +6,4 @@
 
 select * 
 from 
-{{ source('tpcdi', 'v_finwire') }}
+{{ source('tpcdi', 'v_finwire_jbk') }}

@@ -15,6 +15,7 @@ sources:
       - name: v_dailymarketincremental
       - name: v_dailymarkethistorical
       - name: v_finwire
+      - name: v_finwire_jbk
       - name: v_holdinghistory
       - name: v_holdingincremental
       - name: v_hr
