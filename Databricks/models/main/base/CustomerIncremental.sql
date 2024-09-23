@@ -4,16 +4,9 @@
     )
 }}
 select
-    *,
-    2 as batchid
+    *
 from
-    {{ source('tpcdi', 'customerincrementaldos') }}
+    {{ source('tpcdi', 'v_customerincremental') }}
 
- UNION ALL
 
- select
-    *,
-    3 as batchid
-from
-    {{ source('tpcdi', 'customerincrementaltres') }}
 

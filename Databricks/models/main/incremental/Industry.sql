@@ -6,5 +6,5 @@
 select
     *
 from
-    {{ source('tpcdi', 'Industry') }}
+    {{ source('tpcdi_prod', 'industry') }}
 

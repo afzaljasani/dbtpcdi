@@ -6,5 +6,5 @@
 select
     *
 from
-    {{ source('tpcdi', 'TradeType') }}
+    {{ source('tpcdi_prod', 'tradetype') }}
 

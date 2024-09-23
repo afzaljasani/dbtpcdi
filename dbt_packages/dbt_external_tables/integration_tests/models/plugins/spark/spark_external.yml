@@ -1,4 +1,3 @@
----
 version: 2
 
 sources:
@@ -7,7 +6,7 @@ sources:
     loader: S3
 
     tables:
-
+      
       - name: people_csv_unpartitioned_using
         external: &csv-people-using
           location: "s3://dbt-external-tables-testing/csv/"
@@ -43,7 +42,7 @@ sources:
         tests: *equal-to-the-people
 
 # ----- TODO: hive format
-
+        
 #      - name: people_csv_unpartitioned_hive_format
 #        external: &csv-people-hive
 #          location: "s3://dbt-external-tables-testing/csv/"
@@ -51,7 +50,7 @@ sources:
 #          file_format: textfile
 #          tbl_properties: "('skip.header.line.count': 1)"
 #        columns: *cols-of-the-people
-
+#        
 #      - name: people_csv_partitioned_hive_format
 #        external:
 #          <<: *csv-people-hive
@@ -66,7 +65,7 @@ sources:
 #          using: json
 #        columns: *cols-of-the-people
 #        tests: *equal-to-the-people
-
+#        
 #      - name: people_json_partitioned_using
 #        external:
 #          <<: *json-people-using

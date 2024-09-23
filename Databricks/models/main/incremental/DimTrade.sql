@@ -61,10 +61,7 @@ FROM (
         if(create_flg, sk_timeid, cast(NULL AS BIGINT)) sk_createtimeid,
         if(!create_flg, sk_dateid, cast(NULL AS BIGINT)) sk_closedateid,
         if(!create_flg, sk_timeid, cast(NULL AS BIGINT)) sk_closetimeid,
-        CASE 
-          WHEN t_is_cash = 1 then TRUE
-          WHEN t_is_cash = 0 then FALSE
-          ELSE cast(null as BOOLEAN) END AS cashflag,
+        cashflag,
         t_st_id,
         t_tt_id,
         t_s_symb,
@@ -83,44 +80,44 @@ FROM (
           th_dts t_dts,
           t_st_id,
           t_tt_id,
-          t_is_cash,
+          try_cast(t_is_cash as boolean) cashflag,
           t_s_symb,
-          t_qty AS quantity,
-          t_bid_price AS bidprice,
+          quantity,
+          bidprice,
           t_ca_id,
-          t_exec_name AS executedby,
-          t_trade_price AS tradeprice,
-          t_chrg AS fee,
-          t_comm AS commission,
-          t_tax AS tax,
+          executedby,
+          tradeprice,
+          fee,
+          commission,
+          tax,
           1 batchid,
           CASE 
-            WHEN (th_st_id == "SBMT" AND t_tt_id IN ("TMB", "TMS")) OR th_st_id = "PNDG" THEN TRUE 
-            WHEN th_st_id IN ("CMPT", "CNCL") THEN FALSE 
+            WHEN (t_st_id == "SBMT" AND t_tt_id IN ("TMB", "TMS")) OR t_st_id = "PNDG" THEN TRUE 
+            WHEN t_st_id IN ("CMPT", "CNCL") THEN FALSE 
             ELSE cast(null as boolean) END AS create_flg
-        FROM {{ source('tpcdi', 'TradeHistory') }} t
-        JOIN {{ source('tpcdi', 'TradeHistoryRaw') }} th
-          ON th_t_id = t_id
+        FROM {{ source('tpcdi', 'v_trade') }} t
+        JOIN {{ source('tpcdi', 'v_tradehistory') }} th
+          ON th.tradeid = t_id
         UNION ALL
         SELECT
-          t_id tradeid,
+          tradeid,
           t_dts,
-          t_st_id,
-          t_tt_id,
-          t_is_cash,
+          status,
+          type,
+          cashflag,
           t_s_symb,
-          t_qty AS quantity,
-          t_bid_price AS bidprice,
+           quantity,
+          bidprice,
           t_ca_id,
-          t_exec_name AS executedby,
-          t_trade_price AS tradeprice,
-          t_chrg AS fee,
-          t_comm AS commission,
-          t_tax AS tax,
+          executedby,
+          tradeprice,
+          fee,
+          commission,
+          tax,
           t.batchid,
           CASE 
             WHEN cdc_flag = 'I' THEN TRUE 
-            WHEN t_st_id IN ("CMPT", "CNCL") THEN FALSE 
+            WHEN status IN ("Completed", "Canceled") THEN FALSE 
             ELSE cast(null as boolean) END AS create_flg
         FROM {{ ref('TradeIncremental') }} t
       ) t

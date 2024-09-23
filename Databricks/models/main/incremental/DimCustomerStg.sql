@@ -120,27 +120,9 @@ SELECT * FROM (
       nullif(c.city, '') city,
       nullif(c.stateprov, '') stateprov,
       nullif(c.country, '') country,
-      CASE
-        WHEN isnull(c_local_1) then c_local_1
-        ELSE concat(
-          nvl2(c_ctry_1, '+' || c_ctry_1 || ' ', ''),
-          nvl2(c_area_1, '(' || c_area_1 || ') ', ''),
-          c_local_1,
-          nvl(c_ext_1, '')) END as phone1,
-      CASE
-        WHEN isnull(c_local_2) then c_local_2
-        ELSE concat(
-          nvl2(c_ctry_2, '+' || c_ctry_2 || ' ', ''),
-          nvl2(c_area_2, '(' || c_area_2 || ') ', ''),
-          c_local_2,
-          nvl(c_ext_2, '')) END as phone2,
-      CASE
-        WHEN isnull(c_local_3) then c_local_3
-        ELSE concat(
-          nvl2(c_ctry_3, '+' || c_ctry_3 || ' ', ''),
-          nvl2(c_area_3, '(' || c_area_3 || ') ', ''),
-          c_local_3,
-          nvl(c_ext_3, '')) END as phone3,
+      phone1,
+      phone2,
+      phone3,
       nullif(c.email1, '') email1,
       nullif(c.email2, '') email2,
       c.LCL_TX_ID, 

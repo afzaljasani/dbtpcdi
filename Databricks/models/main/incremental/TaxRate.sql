@@ -6,4 +6,4 @@
 select
     *
 from
-    {{ source('tpcdi', 'TaxRate') }}
+    {{ source('tpcdi_prod', 'taxrate') }}

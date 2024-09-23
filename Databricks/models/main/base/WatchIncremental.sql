@@ -4,17 +4,9 @@
     )
 }}
 select
-    *,
-    2 as batchid
+    *
 from
-    {{ source('tpcdi', 'WatchIncrementaldos') }}
+    {{ source('tpcdi', 'v_watchincremental') }}
 
- UNION ALL
-
- select
-    *,
-    3 as batchid
-from
-    {{ source('tpcdi', 'WatchIncrementaltres') }}
 
 

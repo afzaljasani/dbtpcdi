@@ -6,4 +6,4 @@
 select
     *
 from
-    {{ source('tpcdi', 'DimDate') }}
+    {{ source('tpcdi_prod', 'dimdate') }}

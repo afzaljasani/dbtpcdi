@@ -1,9 +1,13 @@
 {% macro bigquery__create_external_table(source_node) %}
-
     {%- set columns = source_node.columns.values() -%}
     {%- set external = source_node.external -%}
     {%- set partitions = external.partitions -%}
     {%- set options = external.options -%}
+    {%- set non_string_options = ['max_staleness'] %}
+
+    {% if options is mapping and options.get('connection_name', none) %}
+        {% set connection_name = options.pop('connection_name') %}
+    {% endif %}
     
     {%- set uris = [] -%}
     {%- if options is mapping and options.get('uris', none) -%}
@@ -27,11 +31,14 @@
             {%- endfor -%}
         ) {% endif -%}
         {% endif %}
+        {% if connection_name %}
+            with connection `{{ connection_name }}`
+        {% endif %}
         options (
             uris = [{%- for uri in uris -%} '{{uri}}' {{- "," if not loop.last}} {%- endfor -%}]
             {%- if options is mapping -%}
             {%- for key, value in options.items() if key != 'uris' %}
-                {%- if value is string -%}
+                {%- if value is string and key not in non_string_options -%}
                 , {{key}} = '{{value}}'
                 {%- else -%}
                 , {{key}} = {{value}}

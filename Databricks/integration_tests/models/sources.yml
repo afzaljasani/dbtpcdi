@@ -4,8 +4,8 @@ version: 2
 
 sources:
   - name: tpcdi
-    catalog: hive_metastore
-    schema: rsstgtest1010
+    catalog: tpcdi
+    schema: tpcdi_raw_data
     tables:
 
       - name: StatusType

@@ -34,9 +34,9 @@ FROM (
         wh.w_dts,
         batchid 
       FROM (
-        SELECT *, 1 batchid FROM {{ source('tpcdi', 'WatchHistory') }}
+        SELECT * FROM {{ source('tpcdi', 'v_watchhistory') }}
         UNION ALL
-        SELECT * except(cdc_flag, cdc_dsn) FROM {{ ref('WatchIncremental') }}) wh
+        SELECT *  FROM {{ ref('WatchIncremental') }}) wh
       JOIN {{ ref('DimDate') }} d
         ON d.datevalue = date(wh.w_dts)))
   QUALIFY ROW_NUMBER() OVER (PARTITION BY customerid, symbol ORDER BY w_dts desc) = 1) wh

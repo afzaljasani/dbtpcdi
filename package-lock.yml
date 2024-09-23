@@ -1,0 +1,8 @@
+packages:
+  - package: dbt-labs/dbt_utils
+    version: 0.8.0
+  - package: dbt-labs/spark_utils
+    version: 0.3.0
+  - package: dbt-labs/dbt_external_tables
+    version: 0.9.0
+sha1_hash: f941a29475ede70127ee87c683d7779a623b8ac8

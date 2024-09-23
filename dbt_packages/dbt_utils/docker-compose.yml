@@ -1,5 +1,3 @@
----
-
 version: "3.7"
 services:
 
@@ -11,7 +9,7 @@ services:
     entrypoint: "/repo/run_test.sh ${TARGET} ${MODELS} ${SEEDS}"
     working_dir: /repo
     volumes:
-      - ".:/repo"
+        - ".:/repo"
 
   postgres:
     image: circleci/postgres:9.6.5-alpine-ram
@@ -22,7 +20,7 @@ services:
   snowflake:
     image: circleci/python:3.6.3-stretch
     entrypoint: "/bin/true"
-
+  
   # dummy container, since bigquery is a managed service
   bigquery:
     image: circleci/python:3.6.3-stretch

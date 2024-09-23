@@ -4,17 +4,10 @@
     )
 }}
 select
-    *,
-    2 as batchid
+    *
 from
-    {{ source('tpcdi', 'CashTransactionIncrementaldos') }}
+    {{ source('tpcdi', 'v_cashtransactionincremental') }}
 
- UNION ALL
 
- select
-    *,
-    3 as batchid
-from
-    {{ source('tpcdi', 'CashTransactionIncrementaltres') }}
 
 

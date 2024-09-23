@@ -17,10 +17,10 @@ FROM (
     sum(ct_amt) account_daily_total,
     batchid
   FROM (
-    SELECT * , 1 batchid
-    FROM {{ source('tpcdi', 'CashTransactionHistory') }}
+    SELECT * except(ct_name)
+    FROM {{ source('tpcdi', 'v_cashtransactionhistory') }}
     UNION ALL
-    SELECT * except(cdc_flag, cdc_dsn)
+    SELECT * 
     FROM {{ ref('CashTransactionIncremental') }}
   )
   GROUP BY
