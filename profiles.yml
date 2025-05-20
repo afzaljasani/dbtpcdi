@@ -1,7 +1,8 @@
 ---
 
 sql_endpoints:
-  target: databricks
+  target: snowflake
+
 
   outputs:
     redshift:
@@ -24,14 +25,14 @@ sql_endpoints:
 
     snowflake:
       type: snowflake
-      account: "{{ env_var('SNOWFLAKE_TEST_ACCOUNT') }}"
-      user: "{{ env_var('SNOWFLAKE_TEST_USER') }}"
-      password: "{{ env_var('SNOWFLAKE_TEST_PASSWORD') }}"
-      role: "{{ env_var('SNOWFLAKE_TEST_ROLE') }}"
-      database: "{{ env_var('SNOWFLAKE_TEST_DATABASE') }}"
-      warehouse: "{{ env_var('SNOWFLAKE_TEST_WAREHOUSE') }}"
-      schema: audit_helper_integration_tests_snowflake
-      threads: 25
+      account: "{{ env_var('SNOWFLAKE_ACCOUNT') }}"
+      user: "{{ env_var('SNOWFLAKE_USER') }}"
+      password: "{{ env_var('SNOWFLAKE_PW') }}"
+      role: "{{ env_var('SNOWFLAKE_ROLE') }}"
+      database: "{{ env_var('SNOWFLAKE_DATABASE') }}"
+      warehouse: "{{ env_var('SNOWFLAKE_WAREHOUSE') }}"
+      schema: TPCDI_SNOWFLAKE
+      threads: 4
 
     databricks:
       type: databricks

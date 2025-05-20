@@ -85,56 +85,56 @@ FROM (
           t_tt_id,
           t_is_cash,
           t_s_symb,
-          t_qty AS quantity,
-          t_bid_price AS bidprice,
+          quantity,
+          bidprice,
           t_ca_id,
-          t_exec_name AS executedby,
-          t_trade_price AS tradeprice,
-          t_chrg AS fee,
-          t_comm AS commission,
-          t_tax AS tax,
+          executedby,
+          tradeprice,
+          fee,
+          commission,
+          tax,
           1 batchid,
           CASE 
-            WHEN (th_st_id = 'SBMT' AND t_tt_id IN ('TMB', 'TMS')) OR th_st_id = 'PNDG' THEN TRUE 
-            WHEN th_st_id IN ('CMPT', 'CNCL') THEN FALSE 
+            WHEN (t_st_id = 'SBMT' AND t_tt_id IN ('TMB', 'TMS')) OR t_st_id = 'PNDG' THEN TRUE 
+            WHEN t_st_id IN ('CMPT', 'CNCL') THEN FALSE 
             ELSE cast(null as boolean) END AS create_flg
-        FROM {{ source('tpcdi', 'TradeHistory') }} t
-        JOIN {{ source('tpcdi', 'TradeHistoryRaw') }} th
-          ON th_t_id = t_id
+        FROM {{ source('tpcdi', 'v_trade') }} t
+        JOIN {{ source('tpcdi', 'v_tradehistory') }} th
+          ON th.tradeid = t_id
         UNION ALL
         SELECT
-          t_id tradeid,
+          tradeid,
           t_dts,
-          t_st_id,
-          t_tt_id,
-          t_is_cash,
+          status,
+          type,
+          cashflag,
           t_s_symb,
-          t_qty AS quantity,
-          t_bid_price AS bidprice,
+          quantity,
+          bidprice,
           t_ca_id,
-          t_exec_name AS executedby,
-          t_trade_price AS tradeprice,
-          t_chrg AS fee,
-          t_comm AS commission,
-          t_tax AS tax,
+          executedby,
+          tradeprice,
+          fee,
+          commission,
+          tax,
           t.batchid,
           CASE 
             WHEN cdc_flag = 'I' THEN TRUE 
-            WHEN t_st_id IN ('CMPT', 'CNCL') THEN FALSE 
+            WHEN status IN ('Completed', 'Canceled') THEN FALSE 
             ELSE cast(null as boolean) END AS create_flg
         FROM {{ ref('TradeIncremental') }} t
       ) t
-      JOIN {{ source('tpcdi', 'DimDate') }} dd
+      JOIN {{ source('tpcdi', 'dimdate') }} dd
         ON date(t.t_dts) = dd.datevalue
-      JOIN {{ source('tpcdi', 'DimTime') }} dt
+      JOIN {{ source('tpcdi', 'dimtime') }} dt
         ON to_char(t.t_dts, 'hh:mi:ss') = dt.timevalue
     )
   )
   QUALIFY ROW_NUMBER() OVER (PARTITION BY tradeid ORDER BY t_dts desc) = 1
 ) trade
-JOIN {{ source('tpcdi', 'StatusType') }} status
+JOIN {{ source('tpcdi', 'statustype') }} status
   ON status.st_id = trade.t_st_id
-JOIN {{ source('tpcdi', 'TradeType') }} tt
+JOIN {{ source('tpcdi', 'tradetype') }} tt
   ON tt.tt_id = trade.t_tt_id
 -- Converts to LEFT JOIN if this is run as DQ EDITION. On some higher Scale Factors, a small number of Security symbols or Account IDs are missing from DimSecurity/DimAccount, causing audit check failures. 
 --${dq_left_flg} 

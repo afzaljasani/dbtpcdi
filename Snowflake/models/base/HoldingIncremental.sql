@@ -4,17 +4,8 @@
     )
 }}
 select
-    *,
-    2 as batchid
+    *
 from
-    {{ source('tpcdi', 'HoldingIncrementaldos') }}
-
- UNION ALL
-
- select
-    *,
-    3 as batchid
-from
-    {{ source('tpcdi', 'HoldingIncrementaltres') }}
+    {{ source('tpcdi', 'v_holdingincremental') }}
 
 

@@ -10,13 +10,11 @@ vars:
   scalefactor: 100
   benchmark: 100
   stage: stagename
-  stagingschema: tpcdi_100_dbsql_100_stage
-  # bucketname: bucketname  # bigquery, redshift only
-  storageaccountname: synapsemigrationdemoadls
+  stagingschema: TPCDI_100_DBSQL_100_STAGE
   catalog: tpcdi
-  prodschema: tpcdi_100_dbsql_100
+  prodschema: tpcdi_100_snowflake_100
 
-model-paths: ["Databricks/models/main"]
+model-paths: ["Snowflake/models/"]
 analysis-paths: ["analyses"]
 test-paths: ["tests"]
 seed-paths: ["seeds"]
@@ -31,5 +29,6 @@ clean-targets:
 dispatch:
   - macro_namespace: dbt_utils
     search_order: ['dbsql_dbt_tpch', 'dbt_utils']
+
 models:
-  +start: Jan 1 2000
+  +transient: false

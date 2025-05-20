@@ -17,17 +17,17 @@ FROM (
     sum(ct_amt) account_daily_total,
     batchid
   FROM (
-    SELECT * , 1 batchid
-    FROM {{ source('tpcdi', 'CashTransactionHistory') }}
+    SELECT * exclude(ct_name)
+    FROM {{ source('tpcdi', 'v_cashtransactionhistory') }}
     UNION ALL
-    SELECT * exclude (cdc_flag, cdc_dsn)
+    SELECT * 
     FROM {{ ref('CashTransactionIncremental') }}
   )
   GROUP BY
     accountid,
     datevalue,
     batchid) c 
-JOIN {{ source('tpcdi', 'DimDate') }} d 
+JOIN {{ source('tpcdi', 'dimdate') }} d 
   ON c.datevalue = d.datevalue
 -- Converts to LEFT JOIN if this is run as DQ EDITION. On some higher Scale Factors, a small number of Account IDs are missing from DimAccount, causing audit check failures. 
  LEFT JOIN {{ ref( 'DimAccount') }} a 

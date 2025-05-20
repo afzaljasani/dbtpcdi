@@ -111,7 +111,7 @@ JOIN (
     sk_dateid,
     batchid
   FROM {{ ref('BatchDate') }} b 
-  JOIN {{ source('tpcdi', 'DimDate') }} d 
+  JOIN {{ source('tpcdi', 'dimdate') }} d 
     ON b.batchdate = d.datevalue) recdate
   ON p.recordbatchid = recdate.batchid
 JOIN (
@@ -119,7 +119,7 @@ JOIN (
     sk_dateid,
     batchid
   FROM {{ ref('BatchDate') }} b 
-  JOIN {{ source('tpcdi', 'DimDate') }} d 
+  JOIN {{ source('tpcdi', 'dimdate') }} d 
     ON b.batchdate = d.datevalue) origdate
   ON p.batchid = origdate.batchid
 LEFT JOIN (

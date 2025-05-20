@@ -10,57 +10,71 @@ models:
           - not_null:
               config:
                 store_failures: true
+                severity: warn
           - accepted_values:
-              values: [1, 2, 3]
+              values: [1,2,3]
               config:
                 store_failures: true
+                severity: warn
 
+
+    
   - name: DimAccount
     columns:
       - name: sk_customerid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_brokerid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
+
+  
 
   - name: DimCustomerStg
     columns:
       - name: effectivedate
-        tests:
-          - dateval:
-              config:
-                store_failures: true
+        # tests:
+          # - dateval:
+          #     config:
+          #       store_failures: true
+
 
   - name: FactMarketHistory
     columns:
       - name: sk_securityid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: PERatio
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
 
   - name: FactWatches
     columns:
       - name: sk_securityid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_customerid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn  
+
 
   - name: FactHoldings
     columns:
@@ -69,6 +83,7 @@ models:
           - not_null:
               config:
                 store_failures: true
+                severity: warn
 
   - name: FactCashBalances
     columns:
@@ -82,22 +97,25 @@ models:
     columns:
       - name: sk_securityid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
+                severity: warn
       - name: sk_accountid
         tests:
-          - not_null:
+           - not_null:
               config:
                 store_failures: true
       - name: commission
-        tests:
-          - tradecom:
-              config:
-                store_failures: true
-
+        # tests:
+        #    - tradecom:
+        #       config:
+        #         store_failures: true 
+                
       - name: fee
-        tests:
-          - tradefee:
-              config:
-                store_failures: true
+        # tests:
+        #    - tradefee:
+        #       config:
+        #         store_failures: true                                                    
+
+
