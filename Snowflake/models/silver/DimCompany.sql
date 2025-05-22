@@ -44,7 +44,7 @@ SELECT
       trim(substring(value, 71, 4)) AS Status,
       trim(substring(value, 75, 2)) AS IndustryID,
       trim(substring(value, 77, 4)) AS SPrating,
-      to_date(iff(trim(substring(value, 99, 8))='',NULL,substring(value, 99, 8)), 'yyyyMMdd') AS FoundingDate,
+      to_date(iff(trim(substring(value, 81, 8))='',NULL,substring(value, 81, 8)), 'yyyyMMdd') AS FoundingDate,
       trim(substring(value, 89, 80)) AS AddrLine1,
       trim(substring(value, 169, 80)) AS AddrLine2,
       trim(substring(value, 249, 12)) AS PostalCode,
